@@ -27,12 +27,20 @@ module ROTP
         byte_secret,
         int_to_bytestring(input)
       )
+      
+      puts hmac
 
       offset = hmac[-1].ord & 0xf
+      
+      puts offset
+      
       code = (hmac[offset].ord & 0x7f) << 24 |
              (hmac[offset + 1].ord & 0xff) << 16 |
              (hmac[offset + 2].ord & 0xff) << 8 |
              (hmac[offset + 3].ord & 0xff)
+      
+      puts code
+      
       (code % 10**digits).to_s.rjust(digits, '0')
     end
 
