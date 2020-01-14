@@ -22,7 +22,7 @@ module ROTP
     # Usually either the counter, or the computed integer
     # based on the Unix timestamp
     def generate_otp(input)
-      hmac = OpenSSL::HMAC.digest(
+      hmac = OpenSSL::HMAC.hexdigest(
         OpenSSL::Digest.new(digest),
         byte_secret,
         int_to_bytestring(input)
