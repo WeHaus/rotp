@@ -45,11 +45,12 @@ module ROTP
     end
     
     def generate_otp_test(input)
-      hmac = OpenSSL::HMAC.digest(
+      hmac_test = OpenSSL::HMAC.new(
         OpenSSL::Digest.new(digest),
         byte_secret,
         int_to_bytestring(input)
       )
+      hmac = hmac_test.digest
       
       puts hmac
 
@@ -68,7 +69,8 @@ module ROTP
     
       return {
         new: new_code,
-        hmac: hmac
+        hmac: hmac,
+        hmac_test: hmac_test
       }
     end
 
